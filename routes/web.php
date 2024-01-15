@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/entree', [EntreeController::class,'index'])->name('entrees.index');
 Route::get('/fournisseur', [FournisseurController::class,'index'])->name('fournisseurs.index');
+Route::get('/fournisseur-delete/{id}', [FournisseurController::class,'destroy'])->name('fournisseurs.destroy');
 Route::get('/sortie', [SortieController::class,'index'])->name('sorties.index');
 Route::get('/categorie', [CategorieController::class,'index'])->name('categories.index');
 Route::post('/store', [FournisseurController::class,'store'])->name('store');
