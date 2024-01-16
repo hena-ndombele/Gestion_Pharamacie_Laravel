@@ -11,32 +11,24 @@ class FournisseurController extends Controller
     }
 
 
-
-
-    
-    public function store(Request $request){
+    public function store(Request $request)
+    {
         $request->validate([
-        
-         'nom'=>'required',
-         'postnom'=>'required',
-         'prenom'=>'required',
-         'telephone'=>'required',
-]);
-        //  dd($request->agent  s);
-         $fournisseurs=Fournisseur::create([
-          
-            'Nom '=> $request->nom,
-            'Postnom' =>$request->postnom,
-            'Prenom'=>$request->prenom,
-            'Telephone'=>$request->telephone
-
-         ]);
-
-        //  dd($fournisseurs);
-         return redirect()->route('fournisseurs.index')->with('succes', 'Le fournisseur a été ajouté avec succès');
-       
-
-
-
+            'nom' => 'required',
+            'postnom' => 'required', 
+            'prenom' => 'required',
+            'telephone' => 'required',
+        ]);
+    
+        $fournisseur = Fournisseur::create([
+            'Nom' => $request->nom,
+            'Postnom' => $request->postnom,
+            'Prenom' => $request->prenom,
+            'Telephone' => $request->telephone,
+        ]);
+    
+       // return redirect()->route('fournisseurs.index')->with('succes', 'Le fournisseur a été ajouté avec succès');
+   
+   return redirect()->back()->with('fournisseur');
     }
 }
