@@ -32,12 +32,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
+Route::get('/index', [App\Http\Controllers\IndexController::class, 'home'])->name('index');
 Route::get('/entree', [EntreeController::class,'index'])->name('entrees.index');
 Route::get('/fournisseur', [FournisseurController::class,'index'])->name('fournisseurs.index');
+
+Route::get('/fournisseur-delete/{id}', [FournisseurController::class,'destroy'])->name('fournisseurs.destroy');
+Route::get('/categorie-delete/{id}', [CategorieController::class,'destroy'])->name('categorie.destroy');
+Route::get('/entree-delete/{id}', [EntreeController::class,'destroy'])->name('entrees.destroy');
 Route::get('/sortie', [SortieController::class,'index'])->name('sorties.index');
 Route::get('/categorie', [CategorieController::class,'index'])->name('categories.index');
 Route::post('/store', [FournisseurController::class,'store'])->name('store');
+Route::post('/entree', [EntreeController::class,'entree'])->name('entree');
+Route::patch('/update', [FournisseurController::class,'update'])->name('update');
+Route::post('/cate', [CategorieController::class,'cate'])->name('cate');
+Route::post('/imprimer', [ImprimerController::class,'imprimer'])->name('imprimer');
 
 //Route::get('/sortie', [SortieController::class,'index'])->name('entrees.index');
 

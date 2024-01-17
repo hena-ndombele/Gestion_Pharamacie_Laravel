@@ -99,77 +99,99 @@
     
 
         <div class="text-end">
-          <button type="button" class="btn  m-4 float-right" data-toggle="modal" data-target="#create_modal" style="background: green; color:white;">
+          <button type="button" class="btn  m-4 float-right" data-toggle="modal" data-target="#createModal" style="background: green; color:white;">
               <i class="fas fa-plus-circle">
               </i>
           </button>
       </div>
+      @section('content')
+                                            @php
+                                                $cpt = 1;
+                                            @endphp
         <div class="container-fluid">
           <div class="col-12">
             
               <div class="row">
                   <div class="col-12">
-                    
+                    @if ($message = Session::get('success'))
+                    <div class="alert alert-success">
+                        <p>{{ $message }}</p>
+                    </div>
+                @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
         <div class="card">
+            <h1 style="text-align: center;font-weight:bolder;color:green;">Mes Achats</h1>
           <div class="card-body p-0">
             <table class="table table-striped projects text-center" >
               <thead>
+                
                   <tr>
-                      <th class="text-center col-lg-1">
+                      <th>
                           Numero
                       </th>
-                      <th class="text-center col-lg-4">
-                          Produits
+                      <th>
+                          Medicament
                       </th>
-                      <th class="text-center col-lg-5">
+                      <th>
                           QTE
                       </th>
-                      <th class="text-right col-lg-2">
+                      <th>
                           P.U
                       </th>
-                      <th class="text-right col-lg-2">
-                        Description
+                      <th>
+                        P.T
                     </th>
-                    <th class="text-right col-lg-2">
+                    
+                    <th>
                       categories
                   </th>
-                  <th class="text-right col-lg-2">
+                  <th>
+                    Date Entrée
+                  </th>
+                  <th>
                     Expiration
                 </th>
                   </tr>
               </thead>
               <tbody>
-                  <tr class="text-center col-lg-1">
+                  <tr>
+                    @forelse($entree as $entree)
                      
-                  
+                 
                    
 
-                        <td class="text-center">1</td>
-                        <td class="text-center col-lg-4">HHH</td>
-                        <td class="text-center col-lg-5">FFF</td>
-                        <td class="text-center col-lg-6">FFF</td>
-                        <td class="text-center col-lg-7">FFF</td>
-                        <td class="text-center col-lg-8">FFF</td>
-                        <td class="text-center col-lg-9">FFF</td>
+                        <td class="text-center">{{$number}}</td>
+                        <td class="text-center">{{$entree->medicament}}</td>
+                        <td class="text-center">{{$entree->quantite}}</td>
+                        <td class="text-center">{{$entree->prix_unitaire}}</td>
+                        <td class="text-center">{{$entree->quantite * $entree->prix_unitaire}}</td>
+                        <td class="text-center"></td>
+                        <td class="text-center">{{$entree->date_entree}}</td>
+                        <td class="text-center">{{$entree->expiration}}</td>
 
-
-               
-                      <td class="text-right  col-lg-2">
-                          <form action="{{ route('departements.destroy'?, method="POST">
-                            
-                              <a class="btn btn-outline-primary fas fa-folder"  data-toggle="modal" data-target="" href="#"></a>
-
-                            
-                              <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="">
-                                  <i class="fas fa-trash" form=""></i>
-                              </a>
-                            
-                          </form>
-                      </td>
+                        <td>
+                            <a class="btn btn-warning btn-sm fas fa-folder" data-toggle="modaldata-target" href="#"></a>
+                            <a class="btn btn-danger btn-sm" href="{{route('entrees.destroy',$entree->id)}}" >
+                                <i class="fas fa-trash" ></i>
+                            </a>
+                        </td>
                      
                   </tr>
               
-                  
+                  @php
+                                                $number++;
+                                            @endphp
+                                        @empty
+                                            <td colspan="12">Aucune entrée des médicaments</td>
+                                        @endforelse
               </tbody>
           </table>
           </div>
@@ -181,7 +203,62 @@
 
 
         
+              <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel" style="color: #086223;font-weight:bolder;">Mes Achats</h5>
+                          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">×</span>
+                          </button>
+                      </div>
+                      <form action="{{route('entree')}}" method="post">
+                          @csrf
+                          <div class="form-group mb-3">
+                         <input type="text" name="medicament" class="form-control" placeholder="Entrez un medicament">
+                          </div><div class="form-group mb-3">
+  
+                              <input type="number" name="quantite" class="form-control" placeholder="Entrez un quantite">
+                          </div>
+  
+                          <div class="form-group mb-3">
+  
+                              <input type="number" name="prix_unitaire" class="form-control" placeholder="Entrez un prix unitaire">
+                          </div>
+                          <div class="form-group mb-3">
+  
+                            <input type="number" name="prix_total" class="form-control" placeholder="Prix total">
+                        </div>
+                        <label>Categorie</label> <br>
+                        <select name="categorie" id="categorie">
+                            <option value=""></option>
+                            @forelse($categorie as $categorie)
+                                <option value="{{ $categorie->id }}">{{ $categorie->nom }}</option>
+                            @empty
+                            <option value="">No options</option>
+                            @endforelse
+                        </select> <br>
 
+                          <div class="form-group mb-3">
+  
+                            <input type="date" name="date_entree" class="form-control" placeholder="Entrez une date d'entrée">
+                        </div>
+                        <div class="form-group mb-3">
+  
+                            <input type="date" name="expiration" class="form-control" placeholder="Entrez une date d'expiration">
+                        </div>
+                          <div>
+                              <button type="submit" class="btn btn-default border float-right"><i
+                                      class="fas fa-save"></i></button>
+                          </div>
+  
+                      </form>
+                  </div>
+              </div>
+          </div>
+  
+  
 
 
 

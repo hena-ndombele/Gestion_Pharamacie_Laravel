@@ -61,7 +61,7 @@
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{route('sorties.index')}}" 
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                   >
                     <i class="fas fa-fw fa-arrow-left"></i>
                     <span>SORTIE</span>
                 </a>
@@ -178,8 +178,8 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                PRODUITS</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size:35px;">25</div>
+                                                MEDICAMENT</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size:35px;">{{$entreecount}}</div>
                                         </div>
                                      
                                     </div>
@@ -195,11 +195,12 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                 CATEGORIES</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size:35px;">4</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" style="font-size:35px;">{{$categoriecount}}</div>
                                         </div>
                                        
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
@@ -213,7 +214,7 @@
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" style="font-size:35px;">8</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" style="font-size:35px;">{{$fournisseurCount}}</div>
                                                 </div>
                                                 <div class="col">
                                                 
