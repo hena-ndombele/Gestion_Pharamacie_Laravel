@@ -159,6 +159,7 @@
                   <th>
                     Expiration
                 </th>
+                <th>Action</th>
                   </tr>
               </thead>
               <tbody>
@@ -178,7 +179,9 @@
                         <td class="text-center">{{$entree->expiration}}</td>
 
                         <td>
-                            <a class="btn btn-warning btn-sm fas fa-folder" data-toggle="modaldata-target" href="#"></a>
+                            <a class="btn  btn-sm" data-toggle="modal" data-target="#impressionModal" href="#" style="background: #086223;color:white;">
+                                <i class="fas fa-print"></i>
+                            </a>
                             <a class="btn btn-danger btn-sm" href="{{route('entrees.destroy',$entree->id)}}" >
                                 <i class="fas fa-trash" ></i>
                             </a>
@@ -233,10 +236,10 @@
                         <label>Categorie</label> <br>
                         <select name="categorie" id="categorie">
                             <option value=""></option>
-                            @forelse($categorie as $categorie)
+                            @forelse($categories as $categorie)
                                 <option value="{{ $categorie->id }}">{{ $categorie->nom }}</option>
                             @empty
-                            <option value="">No options</option>
+                                <option value="">Pas des categories</option>
                             @endforelse
                         </select> <br>
 

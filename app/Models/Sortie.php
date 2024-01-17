@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Sortie extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        'medicament',
+        'quantite',
+        'prix_unitaire',
+        'prix_total',
+        'date_sortie'
+    ];
 }

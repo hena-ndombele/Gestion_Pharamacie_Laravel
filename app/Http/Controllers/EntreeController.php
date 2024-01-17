@@ -9,10 +9,11 @@ class EntreeController extends Controller
 {
     public function index(){
         $entree=Entree::all();
-        $categorie=Categorie::all();
+        $categories=Categorie::all();
         $entreecount=Entree::count();
+        $entrees=Entree::with('categorie')->get();
         $number = 1;
-        return view('entrees.index',compact('entree', 'entreecount', 'categorie','number'));
+        return view('entrees.index',compact('entree', 'entreecount', 'categories','number','entrees'));
     }
 
     public function entree(Request $request){

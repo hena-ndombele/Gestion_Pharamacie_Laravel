@@ -141,21 +141,28 @@
                     <tbody>
                         
                             <tr>
-                                <td class="text-center">hhh</td>
-                                <td class="text-center">jjj</td>
-                                <td class="text-center"> jj</td>
-                                <td class="text-center">hhh</td>
-                                <td class="text-center">hhhh</td>
-                                <td class="text-center">hhhh</td>
-
-                                <td>
-                                    <a class="btn btn-warning btn-sm fas fa-folder" data-toggle="modaldata-target" href="#"></a>
+                                @forelse($sortie as $sortie)
+                                <td class="text-center">{{$number}}</td>
+                                <td class="text-center">{{$sortie->medicament}}</td>
+                                <td class="text-center"> {{$sortie->quantite}}</td>
+                                <td class="text-center">{{$sortie->prix_unitaire}}</td>
+                                <td class="text-center">{{$sortie->quantite * $sortie->prix_unitaire}}</td>
+                                <td class="text-center">{{$sortie->date_sortie}}</td>
+<td>
+                                    <a class="btn  btn-sm" data-toggle="modal" data-target="#impressionModal" href="#" style="background: #086223;color:white;">
+                                        <i class="fas fa-print"></i>
+                                    </a>
                                     <a class="btn btn-danger btn-sm" href="" >
                                         <i class="fas fa-trash" ></i>
                                     </a>
                                 </td>
                             </tr>
-                          <td colspan="12">Aucune sortie des médicaments</td>
+                            @php
+                            $number++;
+                        @endphp
+                    @empty
+                        <td colspan="12">Aucune sortie des médicaments</td>
+                    @endforelse
                       </tbody>
                 </table>
             </div>
@@ -182,28 +189,33 @@
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <form action="#" method="post">
+                    <form action="{{route('sortie')}}" method="post">
                         @csrf
+                        <label>Medicament</label> <br>
+                        <select name="entree" id="entree">
+                            <option value=""></option>
+                            @forelse($entree as $entree)
+                                <option value="{{ $entree->id }}">{{ $entree->nom }}</option>
+                            @empty
+                                <option value="">Pas des categories</option>
+                            @endforelse
+                        </select> <br>
                         <div class="form-group mb-3">
-                       <input type="text" name="medicament" class="form-control" placeholder="Entrez un medicament">
-                        </div><div class="form-group mb-3">
 
-                            <input type="text" name="quantite" class="form-control" placeholder="Entrez un quantite">
+                            <input type="number" name="quantite" class="form-control" placeholder="Entrez un quantite">
                         </div>
 
                         <div class="form-group mb-3">
 
-                            <input type="text" name="prix_unitaire" class="form-control" placeholder="Entrez un prix unitaire" value="1500">
+                            <input type="number" name="prix_unitaire" class="form-control" placeholder="Entrez un prix unitaire">
                         </div>
                         <div class="form-group mb-3">
 
-                            <input type="text" name="prix_total" class="form-control" placeholder="Entrez un prix total">
+                            <input type="number" name="prix_total" class="form-control" placeholder="Entrez un prix total">
                         </div>
+<div class="form-group mb-3">
 
-
-                        <div class="form-group mb-3">
-
-                            <input type="Date" name="date" class="form-control" placeholder="Entrez une date">
+                            <input type="Date" name="date_sortie" class="form-control" placeholder="Entrez une date">
                         </div>
                         <div>
                             <button type="submit" class="btn btn-default border float-right"><i
