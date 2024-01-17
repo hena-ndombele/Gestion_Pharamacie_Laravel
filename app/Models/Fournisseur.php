@@ -9,10 +9,11 @@ class Fournisseur extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'Nom',
-        'Postnom',
-        'Prenom',
-        'Telephone'
+        'nom',
+        'postnom',
+        'prenom',
+        'telephone',
+        'email'
 
     ];
 }

@@ -93,86 +93,101 @@
               <br><br>
 
                     <div class="text-end">
-                        <button type="button" class="btn btn-primary m-4 float-right" data-toggle="modal" data-target="#modal-default">
+                        <button type="button" class="btn  m-4 float-right" data-toggle="modal" data-target="#createModal" style="background: #086223;color:white;">
                             <i class="fas fa-plus-circle">
                             </i>
                         </button>
                     </div>
-                
+                    @section('content')
+                    @php
+                        $cpt = 1;
+                    @endphp
 
-        <div class="container-fluid">
-          <div class="col-12">
-            
-              <div class="row">
-                  <div class="col-12">
+                    <div class="container-fluid">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    @if ($message = Session::get('success'))
+                                        <div class="alert alert-success">
+                                            <p>{{ $message }}</p>
+                                        </div>
+                                    @endif
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                     
-        <div class="card">
-            <h1 style="text-align: center;font-weight:bolder;color:green;">Categories Produits</h1>
-          <div class="card-body p-0">
-            <table class="table table-striped projects text-center" >
-              <thead>
-                  <tr>
-                      <th class="text-center col-lg-1">
-                          Numero
-                      </th>
-                      <th class="text-center col-lg-3">
-                          type de produit
-                      </th>
-                      
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr class="text-center col-lg-1">
-                     
-                   <td class="text-center">1</td>
-                        <td class="text-center col-lg-3">Medicament sur ordonance</td>
-                        
-                     
-                       
-
-
-               
-                
-                     
-                  </tr>
-              
-                  
-              </tbody>
-          </table>
-          <td class="text-right  col-lg-2">
-            <form action="{{ route('departements.destroy'?, method="POST">
-              
-                <a class="btn btn-outline-primary fas fa-folder"  data-toggle="modal" data-target="" href="#"></a>
-
-              
-                <a class="btn btn-danger btn-sm" href="#" data-toggle="modal" data-target="">
-                    <i class="fas fa-trash" form=""></i>
-                </a>
-              
-            </form>
-        </td>
-          </div>
-         
-        </div>
-                  </div>
-              </div></div>
-
-
-
+                                    <div class="card">
+                                        <h1 style="text-align: center;font-weight:bolder;color:green;">Categories Produits</h1>
+                                        <div class="card-body p-0">
+                                            <table class="table table-striped projects text-center">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Numero</th>
+                                                        <th>type de medicament</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse($categories as $categorie)
+                                                        <tr class="text-center col-lg-1">
+                                                            <td class="text-center">{{$number}}</td>
+                                                            <td class="text-center">{{$categorie->categorie}}</td>
+                                                            <td>
+                                                                <a class="btn  btn-sm" data-toggle="modal" data-target="#impressionModal" href="#" style="background: #086223;color:white;">
+                                                                    <i class="fas fa-print"></i>
+                                                                </a>
+                                                                <a class="btn btn-danger btn-sm" href="{{route('categorie.destroy',$categorie->id)}}">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        @php
+                                                            $number++;
+                                                        @endphp
+                                                    @empty
+                                                        <td colspan="12">Aucune catégorie de produits enregistrée</td>
+                                                    @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel" style="color: #086223;font-weight:bolder;">Ajouter
+                                    un catégorie des produits</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <form action="{{ route('cate') }}" method="post">
+                                @csrf
+                                <div class="form-group mb-3">
+                               <input type="text" name="categorie" class="form-control" placeholder="Entrez un categorie">
+                                </div><div class="form-group mb-3">
         
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-
+                            
+                                <div>
+                                    <button type="submit" class="btn btn-default border float-right"><i
+                                            class="fas fa-save"></i></button>
+                                </div>
+        
+                            </form>
+                        </div>
+                    </div>
+                </div>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('sorties', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->unsignedBigInteger('medicament');
+                $table->foreign('medicament')->references('id')->on('entrees')->onDelete('cascade')->onUpdate('cascade');
+            $table->decimal('quantite', 8, 2);
+            $table->decimal('prix_unitaire', 8, 2);
+            $table->decimal('prix_total', 8, 2);
+            $table->date('date_sortie');
+            $table->timestamps()
+            ;
         });
     }
 

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('postnom');
             $table->string('prenom');
             $table->string('telephone');
+            $table->string('email')->unique;
             $table->timestamps();
         });
     }
